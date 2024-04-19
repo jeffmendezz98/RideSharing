@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RideSharing</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_customer_map">Customer_Map</string>
 </resources>
