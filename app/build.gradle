@@ -1,6 +1,8 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
+    //alias(libs.plugins.androidApplication)
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+    //alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
 }
 
 android {
@@ -30,9 +32,16 @@ android {
     buildFeatures {
         viewBinding true
     }
+    apply plugin: 'com.android.application'
+    apply plugin: 'com.google.gms.google-services'
 }
 
 dependencies {
+    implementation (platform('com.google.firebase:firebase-bom:32.8.0'))
+    implementation("com.google.firebase:firebase-auth")
+    implementation ('com.google.firebase:firebase-database')
+    implementation ('com.firebaseui:firebase-ui-auth:7.2.0')
+    implementation ('com.google.firebase:firebase-analytics:17.2.1')
 
     implementation libs.appcompat
     implementation libs.material
