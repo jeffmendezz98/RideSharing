@@ -1,8 +1,10 @@
 package edu.uga.cs.ridesharing;
 
 import androidx.fragment.app.FragmentActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import edu.uga.cs.ridesharing.databinding.ActivityCustomerMapBinding;
 
@@ -17,6 +20,7 @@ public class Customer_Map extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private ActivityCustomerMapBinding binding;
+    private Button logoutButton; // Add reference to the logout button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,23 @@ public class Customer_Map extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Initialize logout button
+        logoutButton = findViewById(R.id.logout_button);
+
+        // Set click listener for the logout button
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Sign out the user
+                FirebaseAuth.getInstance().signOut();
+
+                // Navigate back to the login screen
+                Intent intent = new Intent(Customer_Map.this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Close the current activity
+            }
+        });
     }
 
     /**
@@ -50,3 +71,5 @@ public class Customer_Map extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
+
+
