@@ -41,17 +41,28 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/points_textview"
+    <FrameLayout
+        android:id="@+id/points_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/buttons_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="Points: 0"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:textStyle="bold" />
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/points_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Points: 0"
+            android:textSize="18sp"
+            android:textColor="#BA0C2F"
+            android:background="@drawable/rounded_background"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textStyle="bold" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/logout_button"
@@ -66,4 +77,3 @@
         android:textStyle="bold"/>
 
 </RelativeLayout>
-
