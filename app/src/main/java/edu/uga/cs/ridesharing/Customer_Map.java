@@ -27,6 +27,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
+import edu.uga.cs.ridesharing.driverdata.OfferRideActivity;
+
 public class Customer_Map extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -89,13 +91,15 @@ public class Customer_Map extends FragmentActivity implements OnMapReadyCallback
         });
 
         // Set click listener for the request button
+        // Set click listener for the request button
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle request/offer ride functionality based on mode
                 if (isDriverMode) {
                     // Logic for offering ride
-                    Toast.makeText(Customer_Map.this, "Offering ride", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Customer_Map.this, OfferRideActivity.class);
+                    startActivity(intent);
                 } else {
                     // Logic for requesting ride
                     Intent intent = new Intent(Customer_Map.this, RequestRideActivity.class);
