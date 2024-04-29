@@ -24,7 +24,7 @@ public class OfferRideActivity extends AppCompatActivity {
     private String address;
     private String date;
     private String time;
-    private int userId; // Changed type to int
+    public static int userId; // Changed type to int
     private FrameLayout fragmentContainer;
 
     @Override
@@ -44,7 +44,6 @@ public class OfferRideActivity extends AppCompatActivity {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         addContentView(toolbar, layoutParams);
 
-        // Retrieve current user ID
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             // Changed from getUid() to use hashCode()

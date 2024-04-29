@@ -30,16 +30,19 @@ public class CurrentOffersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_current_offers, container, false);
 
+        // Retrieve userId directly from OfferRideActivity
+        int userId = OfferRideActivity.userId;
+
         offersLayout = view.findViewById(R.id.offers_layout);
         offersList = new ArrayList<>();
 
-        // Load offers from Firebase
-        loadOffersFromFirebase();
+        // Load offers from Firebase for the current user
+        loadOffersFromFirebase(userId);
 
         return view;
     }
 
-    private void loadOffersFromFirebase() {
+    private void loadOffersFromFirebase(int userId) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -47,7 +50,9 @@ public class CurrentOffersFragment extends Fragment {
                 offersList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     OffersModel offer = snapshot.getValue(OffersModel.class);
-                    offersList.add(offer);
+                    if (offer.getUserID() == userId) {
+                        offersList.add(offer);
+                    }
                 }
                 displayOffers();
             }
