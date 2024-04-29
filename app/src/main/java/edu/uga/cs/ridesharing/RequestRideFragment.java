@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import edu.uga.cs.ridesharing.driverdata.OfferRideActivity;
+
 public class RequestRideFragment extends Fragment {
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
@@ -89,13 +91,19 @@ public class RequestRideFragment extends Fragment {
         String date = dateInput.getText().toString().trim();
         String time = timeInput.getText().toString().trim(); // Ensure that the time value is correctly retrieved
 
-        // Call the method in RequestRideActivity to store the request data
-        if (getActivity() instanceof RequestRideActivity) {
-            ((RequestRideActivity) getActivity()).storeRequestData(address, date, time);
+        // Call the method in OfferRideActivity to store the offer data
+        if (getActivity() instanceof OfferRideActivity) {
+            ((OfferRideActivity) requireActivity()).storeOfferData(address, date, time);
         }
 
-        // Hide the current fragment upon submission
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        // Clear text fields after submission
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
+        addressInput.setText("");
+        dateInput.setText("");
+        timeInput.setText("");
     }
 
     public void showDatePicker(View view) {

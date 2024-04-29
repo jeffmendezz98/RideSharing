@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class RideRequestPagerAdapter extends FragmentPagerAdapter {
 
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3; // Update number of pages to 3
 
     public RideRequestPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -20,6 +20,8 @@ public class RideRequestPagerAdapter extends FragmentPagerAdapter {
                 return new RequestRideFragment();
             case 1:
                 return new RideOffersFragment();
+            case 2:
+                return new CurrentRequestsFragment(); // Add CurrentRequestsFragment
             default:
                 return null;
         }
@@ -38,6 +40,8 @@ public class RideRequestPagerAdapter extends FragmentPagerAdapter {
                 return "Request a Ride";
             case 1:
                 return "Ride Offers";
+            case 2:
+                return "Current Requests"; // Title for the third tab
             default:
                 return null;
         }

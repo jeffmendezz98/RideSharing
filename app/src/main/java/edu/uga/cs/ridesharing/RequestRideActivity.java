@@ -17,12 +17,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import edu.uga.cs.ridesharing.driverdata.OfferRideActivity;
+import edu.uga.cs.ridesharing.driverdata.OffersModel;
+
 public class RequestRideActivity extends AppCompatActivity {
 
     private String address;
     private String date;
     private String time;
-    private int userId; // Changed type to int
+    public static int userId;  // Changed type to int
     private FrameLayout fragmentContainer;
 
     @Override
@@ -84,32 +87,22 @@ public class RequestRideActivity extends AppCompatActivity {
         this.time = time;
 
         // Firebase Database operations
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("requests");
-        String requestId = databaseReference.push().getKey(); // Generating a unique key
-        int requestIdInt = requestId.hashCode(); // Converting the string key to an integer
-        RequestsModel request = new RequestsModel(requestIdInt, date, address, userId); // Using integer key
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
+        String offerId = databaseReference.push().getKey(); // Generating a unique key
+        int offerIdInt = offerId.hashCode(); // Converting the string key to an integer
+        OffersModel offer = new OffersModel(offerIdInt, date, address, userId); // Using integer key
 
-        databaseReference.child(String.valueOf(requestIdInt)).setValue(request)
+        databaseReference.child(String.valueOf(offerIdInt)).setValue(offer)
                 .addOnSuccessListener(aVoid -> {
-                    // Submitting ride request successful, replace fragment
-                    submitRideRequest(requestIdInt);
+                    // Submitting ride offer successful, show snackbar
+
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(RequestRideActivity.this, "Failed to save request data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RequestRideActivity.this, "Failed to save offer data", Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void submitRideRequest(int requestId) {
-        // Replace RequestRideFragment with CurrentRequestsFragment
-        Bundle bundle = new Bundle();
-        bundle.putInt("requestId", requestId);
-        CurrentRequestsFragment currentRequestsFragment = new CurrentRequestsFragment();
-        currentRequestsFragment.setArguments(bundle);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, currentRequestsFragment)
-                .commit();
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
