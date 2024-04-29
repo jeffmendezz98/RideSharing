@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
@@ -32,6 +33,16 @@ public class OfferRideActivity extends AppCompatActivity {
         // Set content view
         setContentView(R.layout.activity_offer_ride);
 
+        // Dynamically add toolbar
+        Toolbar toolbar = new Toolbar(this);
+        toolbar.setTitle("Ridesharing");
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        addContentView(toolbar, layoutParams);
+
         // Retrieve current user ID
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -43,20 +54,6 @@ public class OfferRideActivity extends AppCompatActivity {
 
         // Find fragment container
         fragmentContainer = findViewById(R.id.fragment_container);
-
-        // Add toolbar
-        androidx.appcompat.widget.Toolbar toolbar = new androidx.appcompat.widget.Toolbar(this);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // Set toolbar title
-        toolbar.setTitle("Offer Ride");
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-
-        // Add toolbar to activity
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        addContentView(toolbar, layoutParams);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -112,5 +109,3 @@ public class OfferRideActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-

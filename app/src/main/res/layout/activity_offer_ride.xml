@@ -5,13 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".driverdata.OfferRideActivity">
+    tools:context=".RequestRideActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:tabGravity="fill"
         app:tabIndicatorColor="@android:color/black"
         app:tabMode="fixed"
@@ -22,7 +33,7 @@
             android:id="@+id/tab_request_ride"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Offer a Ride" />
+            android:text="Offer Ride" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tab_ride_offers"
@@ -52,3 +63,6 @@
         app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

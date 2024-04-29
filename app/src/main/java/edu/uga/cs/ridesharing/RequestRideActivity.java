@@ -32,8 +32,7 @@ public class RequestRideActivity extends AppCompatActivity {
 
         // Dynamically add toolbar
         Toolbar toolbar = new Toolbar(this);
-        toolbar.setTitle("Request Ride");
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.black));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here -->
         <item name="android:windowBackground">#BA0C2F</item>
+        <item name="android:textColorPrimary">@android:color/black</item> <!-- Set the text color here -->
         <!-- Add other theme attributes as needed -->
     </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
