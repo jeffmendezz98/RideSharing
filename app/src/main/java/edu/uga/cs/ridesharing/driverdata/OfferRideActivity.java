@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -76,27 +77,16 @@ public class OfferRideActivity extends AppCompatActivity {
 
         databaseReference.child(String.valueOf(offerIdInt)).setValue(offer)
                 .addOnSuccessListener(aVoid -> {
-                    // Submitting ride offer successful, replace fragment
-                    submitRideOffer(offerIdInt);
+                    // Submitting ride offer successful, show snackbar
+                    showSubmissionSuccessSnackbar();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(OfferRideActivity.this, "Failed to save offer data", Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void submitRideOffer(int offerId) {
-        // Replace OfferRideFragment with CurrentOffersFragment
-        Bundle bundle = new Bundle();
-        bundle.putInt("offerId", offerId);
-        CurrentOffersFragment currentOffersFragment = new CurrentOffersFragment();
-        currentOffersFragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, currentOffersFragment)
-                .commit();
-
-        // Show fragment container
-        fragmentContainer.setVisibility(View.VISIBLE);
+    private void showSubmissionSuccessSnackbar() {
+        Snackbar.make(findViewById(android.R.id.content), "Offer submitted successfully", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

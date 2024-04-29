@@ -9,13 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+
 import com.google.android.material.textfield.TextInputEditText;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -90,11 +94,17 @@ public class OfferRideFragment extends Fragment {
 
         // Call the method in OfferRideActivity to store the offer data
         if (getActivity() instanceof OfferRideActivity) {
-            ((OfferRideActivity) getActivity()).storeOfferData(address, date, time);
+            ((OfferRideActivity) requireActivity()).storeOfferData(address, date, time);
         }
 
-        // Hide the current fragment upon submission
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        // Clear text fields after submission
+        clearTextFields();
+    }
+
+    private void clearTextFields() {
+        addressInput.setText("");
+        dateInput.setText("");
+        timeInput.setText("");
     }
 
     public void showDatePicker(View view) {
@@ -146,4 +156,3 @@ public class OfferRideFragment extends Fragment {
         }
     }
 }
-

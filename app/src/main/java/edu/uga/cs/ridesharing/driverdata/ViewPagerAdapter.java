@@ -8,9 +8,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import edu.uga.cs.ridesharing.driverdata.RideRequestsFragment;
 import edu.uga.cs.ridesharing.driverdata.OfferRideFragment;
+import edu.uga.cs.ridesharing.driverdata.CurrentOffersFragment; // Import CurrentOffersFragment
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private static final int NUM_TABS = 2;
+    private static final int NUM_TABS = 3; // Change to 3 tabs
 
     public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, int behavior) {
         super(fragmentManager, behavior);
@@ -25,6 +26,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 return new OfferRideFragment(); // First tab: Offer a Ride
             case 1:
                 return new RideRequestsFragment(); // Second tab: Ride Requests
+            case 2:
+                return new CurrentOffersFragment(); // Third tab: Current Offers
             default:
                 return null;
         }
@@ -46,9 +49,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 return "Offer a Ride";
             case 1:
                 return "Ride Requests";
+            case 2:
+                return "Current Offers"; // Title for the third tab
             default:
                 return null;
         }
     }
 }
+
 
