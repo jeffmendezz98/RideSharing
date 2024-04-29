@@ -1,0 +1,36 @@
+<!-- fragment_current_offers.xml -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/offers_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Add a FrameLayout to hold either the RecyclerView or a placeholder message -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- RecyclerView for the offers -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" /> <!-- Initially hidden -->
+
+            <!-- Placeholder message to show when there are no offers -->
+            <TextView
+                android:id="@+id/placeholder_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No offers available"
+                android:layout_gravity="center"
+                android:visibility="visible" /> <!-- Initially visible -->
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>
