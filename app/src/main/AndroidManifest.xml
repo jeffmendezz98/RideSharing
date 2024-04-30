@@ -55,7 +55,7 @@
 
         <!-- Add the following activity declaration -->
         <activity
-            android:name=".RequestRideActivity"
+            android:name=".riderdata.RequestRideActivity"
             android:exported="true"
             android:screenOrientation="fullSensor" />
     <activity

@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.riderdata;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -19,7 +19,7 @@ public class RideRequestPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new RequestRideFragment();
             case 1:
-                return new RideOffersFragment();
+                return new RequestsRideListFragment();
             case 2:
                 return new CurrentRequestsFragment(); // Add CurrentRequestsFragment
             default:

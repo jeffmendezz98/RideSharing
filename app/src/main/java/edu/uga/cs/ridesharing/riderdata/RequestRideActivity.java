@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.riderdata;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import edu.uga.cs.ridesharing.DB.RequestsModel;
+import edu.uga.cs.ridesharing.R;
 
 
 public class RequestRideActivity extends AppCompatActivity {

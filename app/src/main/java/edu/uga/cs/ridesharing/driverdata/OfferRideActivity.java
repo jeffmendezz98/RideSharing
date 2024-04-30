@@ -2,7 +2,6 @@ package edu.uga.cs.ridesharing.driverdata;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -17,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.R;
 
 public class OfferRideActivity extends AppCompatActivity {

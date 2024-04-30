@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.R;
 
 public class OffersAdapter extends RecyclerView.Adapter<OffersAdapter.OfferViewHolder> {

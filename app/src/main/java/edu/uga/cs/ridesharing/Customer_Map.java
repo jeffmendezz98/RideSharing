@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 
 import edu.uga.cs.ridesharing.driverdata.OfferRideActivity;
+import edu.uga.cs.ridesharing.riderdata.RequestRideActivity;
 
 public class Customer_Map extends FragmentActivity implements OnMapReadyCallback {
 

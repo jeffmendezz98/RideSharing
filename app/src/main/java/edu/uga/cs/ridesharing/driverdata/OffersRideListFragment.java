@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import javax.annotation.Nullable;
 
-import edu.uga.cs.ridesharing.DBHelper;
+import edu.uga.cs.ridesharing.DB.DBHelper;
+import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.R;
-import edu.uga.cs.ridesharing.driverdata.OffersModel;
 
 public class OffersRideListFragment extends Fragment {
 

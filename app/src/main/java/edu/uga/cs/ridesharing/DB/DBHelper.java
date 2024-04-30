@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,8 +10,6 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.uga.cs.ridesharing.driverdata.OffersModel;
 
 public class DBHelper extends SQLiteOpenHelper {
 

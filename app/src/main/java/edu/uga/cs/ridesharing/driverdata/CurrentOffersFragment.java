@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.R;
 
 public class CurrentOffersFragment extends Fragment {

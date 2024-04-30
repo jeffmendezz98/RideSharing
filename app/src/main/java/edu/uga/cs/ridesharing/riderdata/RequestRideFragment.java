@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.riderdata;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -22,6 +22,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import edu.uga.cs.ridesharing.R;
 
 
 public class RequestRideFragment extends Fragment {

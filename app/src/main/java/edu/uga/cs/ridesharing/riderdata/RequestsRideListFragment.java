@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.riderdata;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import javax.annotation.Nullable;
+
+import edu.uga.cs.ridesharing.DB.DBHelper;
+import edu.uga.cs.ridesharing.DB.RequestsModel;
+import edu.uga.cs.ridesharing.R;
 
 public class RequestsRideListFragment extends Fragment {
 

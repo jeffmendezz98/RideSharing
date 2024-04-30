@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing.driverdata;
+package edu.uga.cs.ridesharing.DB;
 
 public class OffersModel {
     private int id;

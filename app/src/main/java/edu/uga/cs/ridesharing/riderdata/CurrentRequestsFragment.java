@@ -1,6 +1,6 @@
-package edu.uga.cs.ridesharing;
+package edu.uga.cs.ridesharing.riderdata;
 
-import static edu.uga.cs.ridesharing.RequestRideActivity.userId;
+import static edu.uga.cs.ridesharing.riderdata.RequestRideActivity.userId;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uga.cs.ridesharing.driverdata.OffersModel;
+import edu.uga.cs.ridesharing.DB.RequestsModel;
+import edu.uga.cs.ridesharing.R;
 
 public class CurrentRequestsFragment extends Fragment {
 
