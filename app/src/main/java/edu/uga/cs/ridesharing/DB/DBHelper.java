@@ -6,7 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -197,9 +204,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return returnList;
     }//getRequestsList
 
-    public List<OffersModel> getOffersList(){
-        List<OffersModel> returnList = new ArrayList<>();
+    public List<OffersModel> getOffersList() {
+        List<OffersModel> offersList = new ArrayList<>();
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                offersList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    OffersModel offer = snapshot.getValue(OffersModel.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
+        });
+        return offersList;
+    }//getList
+
+
+
+        /*
         //get data from database
         String queryString = "SELECT * FROM " + TABLE_OFFERS;
 
@@ -224,6 +252,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         cursor.close();
         db.close();
-        return returnList;
-    }//getList
+        */
+
 }

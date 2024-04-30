@@ -25,7 +25,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new OfferRideFragment(); // First tab: Offer a Ride
             case 1:
-                return new RideRequestsFragment(); // Second tab: Ride Requests
+                return new OffersRideListFragment(); // Second tab: Ride Requests
             case 2:
                 return new CurrentOffersFragment(); // Third tab: Current Offers
             default:
