@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing.driverdata;
+package edu.uga.cs.ridesharing.riderdata;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -40,6 +42,7 @@ public class OffersRideListFragment extends Fragment {
 
 
         DBHelper dbHelper = new DBHelper(context);
+        List<OffersModel> list = dbHelper.getOffersList();
         offersArrayAdapter = new ArrayAdapter<OffersModel>(
                 context, android.R.layout.simple_list_item_1, dbHelper.getOffersList()
         );

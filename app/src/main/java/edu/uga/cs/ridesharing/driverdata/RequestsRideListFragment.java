@@ -1,4 +1,4 @@
-package edu.uga.cs.ridesharing.riderdata;
+package edu.uga.cs.ridesharing.driverdata;
 
 import android.content.Context;
 import android.os.Bundle;

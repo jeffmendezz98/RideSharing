@@ -19,7 +19,7 @@ public class RideRequestPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return new RequestRideFragment();
             case 1:
-                return new RequestsRideListFragment();
+                return new OffersRideListFragment();
             case 2:
                 return new CurrentRequestsFragment(); // Add CurrentRequestsFragment
             default:
