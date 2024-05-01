@@ -33,7 +33,7 @@ public class RequestsRideListFragment extends Fragment {
         Context context = getActivity().getApplicationContext();
 
         // Inflate Layout
-        View rootView = inflater.inflate(R.layout.fragment_list_rides, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_list_rides_not_used, container, false);
 
         // Initialize views
         lv_list = rootView.findViewById(R.id.lv_list_requests);
