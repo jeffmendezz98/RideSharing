@@ -24,6 +24,7 @@ import edu.uga.cs.ridesharing.R;
 public class OffersRideListFragment extends Fragment {
 
     private ViewGroup offersLayout;
+    private ViewGroup acceptOfferPopup;
     private List<OffersModel> offersList;
 
     public OffersRideListFragment() {
@@ -36,6 +37,7 @@ public class OffersRideListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_current_offers, container, false);
 
         offersLayout = view.findViewById(R.id.offers_layout);
+        //acceptOfferPopup = view.findViewById(R.id.accept_offer_popup);
         offersList = new ArrayList<>();
 
         // Load offers from Firebase
@@ -93,5 +95,12 @@ public class OffersRideListFragment extends Fragment {
 
             offersLayout.addView(offerView);
         }
+    }
+
+    private void displayPopup(){
+        offersLayout.removeAllViews();
+        //offersLayout = view.findViewById(R.id.offers_layout);
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.accept_offer_popup, offersLayout, false);
+
     }
 }

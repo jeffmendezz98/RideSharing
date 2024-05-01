@@ -28,7 +28,7 @@ public class RequestRideActivity extends AppCompatActivity {
     private String date;
     private String time;
     public static int userId;  // Changed type to int
-    private FrameLayout fragmentContainer;
+    private FrameLayout fragmentContainer, popupContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,6 +54,7 @@ public class RequestRideActivity extends AppCompatActivity {
 
         // Find fragment container
         fragmentContainer = findViewById(R.id.fragment_container);
+        popupContainer = findViewById(R.id.popup_container);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -62,7 +63,8 @@ public class RequestRideActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        fragmentContainer = findViewById(R.id.fragment_container);
+        //fragmentContainer = findViewById(R.id.fragment_container);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -26,7 +26,7 @@ public class OfferRideActivity extends AppCompatActivity {
     private String date;
     private String time;
     public static int userId; // Changed type to int
-    private FrameLayout fragmentContainer;
+    private FrameLayout fragmentContainer, popupContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class OfferRideActivity extends AppCompatActivity {
 
         // Find fragment container
         fragmentContainer = findViewById(R.id.fragment_container);
+        popupContainer = findViewById(R.id.popup_container);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
