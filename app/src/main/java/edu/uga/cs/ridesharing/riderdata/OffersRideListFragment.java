@@ -84,23 +84,44 @@ public class OffersRideListFragment extends Fragment {
 
             // Set onClickListener for accept button
             acceptButton.setOnClickListener(v -> {
-                // Remove request from the list and database
-                DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
-                requestRef.removeValue(); // Remove request from Firebase database
-
-                // Remove request item from the layout
-                ((ViewGroup) offerView.getParent()).removeView(offerView);
-                offersList.remove(offer);
+                // Display the popup
+                displayPopup(String.valueOf(offer.getId())); // Convert offer ID to String
             });
 
             offersLayout.addView(offerView);
         }
     }
 
-    private void displayPopup(){
-        offersLayout.removeAllViews();
-        //offersLayout = view.findViewById(R.id.offers_layout);
-        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.accept_offer_popup, offersLayout, false);
+    private void displayPopup(String offerId) {
+        // Inflate the popup layout
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.accept_offer_popup, null);
 
+        // Find views in the popup layout
+        Button acceptButton = popupView.findViewById(R.id.acceptButton);
+        Button cancelButton = popupView.findViewById(R.id.cancelButton);
+
+        // Set onClickListeners for the buttons
+        acceptButton.setOnClickListener(v -> {
+            // Remove offer from the database
+            DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(offerId);
+            offerRef.removeValue(); // Remove offer from Firebase database
+
+            // Dismiss the popup
+            ViewGroup parentView = (ViewGroup) popupView.getParent();
+            if (parentView != null) {
+                parentView.removeView(popupView);
+            }
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            // Dismiss the popup
+            ViewGroup parentView = (ViewGroup) popupView.getParent();
+            if (parentView != null) {
+                parentView.removeView(popupView);
+            }
+        });
+
+        // Add the popup to the offersLayout
+        offersLayout.addView(popupView);
     }
 }
