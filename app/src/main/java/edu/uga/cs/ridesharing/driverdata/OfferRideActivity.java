@@ -25,6 +25,7 @@ public class OfferRideActivity extends AppCompatActivity {
     private String address;
     private String date;
     private String time;
+    private boolean toggle;
     public static int userId; // Changed type to int
     private FrameLayout fragmentContainer, popupContainer;
 
@@ -65,16 +66,17 @@ public class OfferRideActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public void storeOfferData(String address, String date, String time) {
+    public void storeOfferData(String address, String date, String time, Boolean toggle) {
         this.address = address;
         this.date = date;
         this.time = time;
+        this.toggle = toggle;
 
         // Firebase Database operations
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
         String offerId = databaseReference.push().getKey(); // Generating a unique key
         int offerIdInt = offerId.hashCode(); // Converting the string key to an integer
-        OffersModel offer = new OffersModel(offerIdInt, date, address, userId); // Using integer key
+        OffersModel offer = new OffersModel(offerIdInt, date, address, userId, toggle); // Using integer key
 
         databaseReference.child(String.valueOf(offerIdInt)).setValue(offer)
                 .addOnSuccessListener(aVoid -> {

@@ -102,9 +102,34 @@ public class OffersRideListFragment extends Fragment {
 
         // Set onClickListeners for the buttons
         acceptButton.setOnClickListener(v -> {
-            // Remove offer from the database
-            DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(offerId);
-            offerRef.removeValue(); // Remove offer from Firebase database
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                //re-instantiate offersList
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    offersList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        OffersModel offer = snapshot.getValue(OffersModel.class);
+                            offersList.add(offer);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error
+                }
+            });
+
+            for (OffersModel offer : offersList) {
+                /*
+                if (offer.getId() == ) {
+                    offer.setHasNotBeenAccepted(false);
+                    DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
+                    offerRef.setValue(offer); // Update offer in Firebase
+                }
+                */
+            }
 
             // Dismiss the popup
             ViewGroup parentView = (ViewGroup) popupView.getParent();
@@ -113,6 +138,7 @@ public class OffersRideListFragment extends Fragment {
             }
         });
 
+        //Cancel Button
         cancelButton.setOnClickListener(v -> {
             // Dismiss the popup
             ViewGroup parentView = (ViewGroup) popupView.getParent();

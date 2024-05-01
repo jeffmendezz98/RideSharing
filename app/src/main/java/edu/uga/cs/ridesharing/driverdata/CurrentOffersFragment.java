@@ -25,6 +25,7 @@ public class CurrentOffersFragment extends Fragment {
 
     private LinearLayout offersLayout;
     private List<OffersModel> offersList;
+    private Boolean toggle;
 
     @Nullable
     @Override
@@ -82,12 +83,13 @@ public class CurrentOffersFragment extends Fragment {
             addressEditText.setText(offer.getDestination());
             dateEditText.setText(offer.getDate());
 
-
+            Boolean toggle = offer.getHasNotBeenAccepted();
             // Set onClickListeners for edit, save, and cancel buttons
+            editButton.setEnabled(toggle);
             editButton.setOnClickListener(v -> {
-                addressEditText.setEnabled(true);
-                dateEditText.setEnabled(true);
-                timeEditText.setEnabled(true);
+                addressEditText.setEnabled(toggle);
+                dateEditText.setEnabled(toggle);
+                timeEditText.setEnabled(toggle);
                 editButton.setVisibility(View.GONE);
                 saveButton.setVisibility(View.VISIBLE);
                 cancelButton.setVisibility(View.VISIBLE);
@@ -102,8 +104,6 @@ public class CurrentOffersFragment extends Fragment {
                 if (!newAddress.isEmpty() && !newDate.isEmpty() && !newTime.isEmpty()) {
                     offer.setDestination(newAddress);
                     offer.setDate(newDate);
-
-
                     DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
                     offerRef.setValue(offer); // Update offer in Firebase
                 }

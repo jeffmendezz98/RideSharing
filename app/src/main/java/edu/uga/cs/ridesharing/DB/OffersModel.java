@@ -5,12 +5,14 @@ public class OffersModel {
     private String date;
     private String destination;
     private int userID;
+    private Boolean hasNotBeenAccepted;
 
-    public OffersModel(int id, String date, String destination, int userID) {
+    public OffersModel(int id, String date, String destination, int userID, boolean hasNotBeenAccepted) {
         this.id = id;
         this.date = date;
         this.destination = destination;
         this.userID = userID;
+        this.hasNotBeenAccepted = hasNotBeenAccepted;
     }
 
     public OffersModel(){
@@ -46,5 +48,13 @@ public class OffersModel {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public Boolean getHasNotBeenAccepted() {
+        return hasNotBeenAccepted;
+    }
+
+    public void setHasNotBeenAccepted(Boolean hasNotBeenAccepted) {
+        this.hasNotBeenAccepted = hasNotBeenAccepted;
     }
 }

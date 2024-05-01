@@ -91,10 +91,10 @@ public class OfferRideFragment extends Fragment {
         String address = addressInput.getText().toString().trim();
         String date = dateInput.getText().toString().trim();
         String time = timeInput.getText().toString().trim(); // Ensure that the time value is correctly retrieved
-
+        Boolean toggle = true;
         // Call the method in OfferRideActivity to store the offer data
         if (getActivity() instanceof OfferRideActivity) {
-            ((OfferRideActivity) requireActivity()).storeOfferData(address, date, time);
+            ((OfferRideActivity) requireActivity()).storeOfferData(address, date, time, toggle);
         }
 
         // Clear text fields after submission
