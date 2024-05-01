@@ -51,7 +51,7 @@ public class OffersRideListFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                offersList.clear();
+                //offersList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     OffersModel offer = snapshot.getValue(OffersModel.class);
                         offersList.add(offer);
@@ -71,52 +71,20 @@ public class OffersRideListFragment extends Fragment {
         offersLayout.removeAllViews(); // Clear previous views
 
         for (OffersModel offer : offersList) {
-            View requestView = LayoutInflater.from(getContext()).inflate(R.layout.offers_layout, offersLayout, false);
+            View requestView = LayoutInflater.from(getContext()).inflate(R.layout.offers_list_layout, offersLayout, false);
 
             // Populate request data into the view
             EditText addressEditText = requestView.findViewById(R.id.address_text_view);
             EditText dateEditText = requestView.findViewById(R.id.date_text_view);
             EditText timeEditText = requestView.findViewById(R.id.time_text_view);
-            Button editButton = requestView.findViewById(R.id.edit_button);
-            Button saveButton = requestView.findViewById(R.id.save_button);
-            Button cancelButton = requestView.findViewById(R.id.cancel_button);
+            Button acceptButton = requestView.findViewById(R.id.accept_button);
 
             addressEditText.setText(offer.getDestination());
             dateEditText.setText(offer.getDate());
+            //timeEditText.setText(offer.getTime());
 
-            // Set onClickListeners for edit, save, and cancel buttons
-            editButton.setOnClickListener(v -> {
-                addressEditText.setEnabled(true);
-                dateEditText.setEnabled(true);
-                timeEditText.setEnabled(true);
-                editButton.setVisibility(View.GONE);
-                saveButton.setVisibility(View.VISIBLE);
-                cancelButton.setVisibility(View.VISIBLE);
-            });
-
-            saveButton.setOnClickListener(v -> {
-                // Save changes to request
-                String newAddress = addressEditText.getText().toString().trim();
-                String newDate = dateEditText.getText().toString().trim();
-                String newTime = timeEditText.getText().toString().trim();
-
-                if (!newAddress.isEmpty() && !newDate.isEmpty() && !newTime.isEmpty()) {
-                    offer.setDestination(newAddress);
-                    offer.setDate(newDate);
-
-                    DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offer").child(String.valueOf(offer.getId()));
-                    offerRef.setValue(offer); // Update offer in Firebase
-                }
-
-                addressEditText.setEnabled(false);
-                dateEditText.setEnabled(false);
-                timeEditText.setEnabled(false);
-                editButton.setVisibility(View.VISIBLE);
-                saveButton.setVisibility(View.GONE);
-                cancelButton.setVisibility(View.GONE);
-            });
-
-            cancelButton.setOnClickListener(v -> {
+            // Set onClickListeners for accept buttons
+            acceptButton.setOnClickListener(v -> {
                 // Remove offer from the list and database
                 DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
                 requestRef.removeValue(); // Remove request from Firebase database
@@ -125,6 +93,7 @@ public class OffersRideListFragment extends Fragment {
                 ((ViewGroup) requestView.getParent()).removeView(requestView);
                 offersList.remove(offer);
             });
+
 
             offersLayout.addView(requestView);
         }
