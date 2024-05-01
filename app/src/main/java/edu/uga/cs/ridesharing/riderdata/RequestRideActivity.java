@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,14 +96,17 @@ public class RequestRideActivity extends AppCompatActivity {
 
         databaseReference.child(String.valueOf(requestIdInt)).setValue(request)
                 .addOnSuccessListener(aVoid -> {
-                    // Submitting ride requeset successful, show snackbar
-
+                    // Submitting ride request successful, show snackbar
+                    showSubmissionSuccessSnackbar();
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(RequestRideActivity.this, "Failed to save request data", Toast.LENGTH_SHORT).show();
                 });
     }
 
+    private void showSubmissionSuccessSnackbar() {
+        Snackbar.make(findViewById(android.R.id.content), "Request submitted successfully", Snackbar.LENGTH_SHORT).show();
+    }
 
 
     @Override
