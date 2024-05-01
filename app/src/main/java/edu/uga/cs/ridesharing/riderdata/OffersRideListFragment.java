@@ -68,13 +68,13 @@ public class OffersRideListFragment extends Fragment {
         offersLayout.removeAllViews(); // Clear previous views
 
         for (OffersModel offer : offersList) {
-            View requestView = LayoutInflater.from(getContext()).inflate(R.layout.accept_layout, offersLayout, false);
+            View offerView = LayoutInflater.from(getContext()).inflate(R.layout.accept_layout, offersLayout, false);
 
             // Populate request data into the view
-            TextView nameTextView = requestView.findViewById(R.id.textViewUserId);
-            TextView destinationTextView = requestView.findViewById(R.id.textViewDestination);
-            TextView dateTextView = requestView.findViewById(R.id.textViewDate);
-            Button acceptButton = requestView.findViewById(R.id.buttonAccept);
+            TextView nameTextView = offerView.findViewById(R.id.textViewUserId);
+            TextView destinationTextView = offerView.findViewById(R.id.textViewDestination);
+            TextView dateTextView = offerView.findViewById(R.id.textViewDate);
+            Button acceptButton = offerView.findViewById(R.id.buttonAccept);
 
             nameTextView.setText(String.valueOf(offer.getUserID()));
             destinationTextView.setText(offer.getDestination());
@@ -82,10 +82,16 @@ public class OffersRideListFragment extends Fragment {
 
             // Set onClickListener for accept button
             acceptButton.setOnClickListener(v -> {
-                // Handle accept button click event
+                // Remove request from the list and database
+                DatabaseReference requestRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
+                requestRef.removeValue(); // Remove request from Firebase database
+
+                // Remove request item from the layout
+                ((ViewGroup) offerView.getParent()).removeView(offerView);
+                offersList.remove(offer);
             });
 
-            offersLayout.addView(requestView);
+            offersLayout.addView(offerView);
         }
     }
 }
