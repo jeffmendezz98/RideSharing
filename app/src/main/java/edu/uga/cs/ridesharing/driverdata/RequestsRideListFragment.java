@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.DB.RequestsModel;
 import edu.uga.cs.ridesharing.R;
 
@@ -82,9 +83,69 @@ public class RequestsRideListFragment extends Fragment {
             // Set onClickListener for accept button
             acceptButton.setOnClickListener(v -> {
                 // Handle accept button click event
+                displayPopup(String.valueOf(request.getId()));
             });
 
             requestsLayout.addView(requestView);
         }
+    }
+
+    private void displayPopup(String offerId) {
+        // Inflate the popup layout
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.accept_request_popup, null);
+
+        // Find views in the popup layout
+        Button acceptButton = popupView.findViewById(R.id.acceptButton);
+        Button cancelButton = popupView.findViewById(R.id.cancelButton);
+
+        // Set onClickListeners for the buttons
+        acceptButton.setOnClickListener(v -> {
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("requests");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                //re-instantiate requestsList
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    requestsList.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        RequestsModel request = snapshot.getValue(RequestsModel.class);
+                        requestsList.add(request);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Handle database error
+                }
+            });
+
+            for (RequestsModel request : requestsList) {
+                /*
+                if (offer.getId() == ) {
+                    offer.setHasNotBeenAccepted(false);
+                    DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
+                    offerRef.setValue(offer); // Update offer in Firebase
+                }
+                */
+            }
+
+            // Dismiss the popup
+            ViewGroup parentView = (ViewGroup) popupView.getParent();
+            if (parentView != null) {
+                parentView.removeView(popupView);
+            }
+        });
+
+        //Cancel Button
+        cancelButton.setOnClickListener(v -> {
+            // Dismiss the popup
+            ViewGroup parentView = (ViewGroup) popupView.getParent();
+            if (parentView != null) {
+                parentView.removeView(popupView);
+            }
+        });
+
+        // Add the popup to the offersLayout
+        requestsLayout.addView(popupView);
     }
 }
