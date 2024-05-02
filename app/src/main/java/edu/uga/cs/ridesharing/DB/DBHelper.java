@@ -184,7 +184,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery(queryString, null);
 
-        if(cursor.moveToFirst()){
+        /*if(cursor.moveToFirst()){
             //loop throughout the cursor (result set) and create new CountryModel object for each row
             do {
                 int requestID = cursor.getInt(0);
@@ -197,7 +197,7 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         } else {
             // failure. Did not add anything to the list.
-        }
+        }*/
 
         cursor.close();
         db.close();

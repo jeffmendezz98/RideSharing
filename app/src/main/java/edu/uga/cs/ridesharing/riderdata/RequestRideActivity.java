@@ -27,12 +27,15 @@ public class RequestRideActivity extends AppCompatActivity {
     private String address;
     private String date;
     private String time;
+    private boolean toggle;
     public static int userId;  // Changed type to int
     private FrameLayout fragmentContainer, popupContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Set content view
         setContentView(R.layout.activity_request_ride);
 
         // Dynamically add toolbar
@@ -89,12 +92,13 @@ public class RequestRideActivity extends AppCompatActivity {
         this.address = address;
         this.date = date;
         this.time = time;
+        this.toggle = toggle;
 
         // Firebase Database operations
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("requests");
         String requestId = databaseReference.push().getKey(); // Generating a unique key
         int requestIdInt = requestId.hashCode(); // Converting the string key to an integer
-        RequestsModel request = new RequestsModel(requestIdInt, date, address, userId); // Using integer key
+        RequestsModel request = new RequestsModel(requestIdInt, date, address, userId, toggle); // Using integer key
 
         databaseReference.child(String.valueOf(requestIdInt)).setValue(request)
                 .addOnSuccessListener(aVoid -> {

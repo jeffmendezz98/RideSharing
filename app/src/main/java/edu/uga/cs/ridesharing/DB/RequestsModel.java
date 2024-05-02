@@ -6,11 +6,14 @@ public class RequestsModel {
     private String destination;
     private int userID;
 
-    public RequestsModel(int id, String date, String destination, int userID) {
+    private Boolean hasNotBeenAccepted;
+
+    public RequestsModel(int id, String date, String destination, int userID, boolean hasNotBeenAccepted) {
         this.id = id;
         this.date = date;
         this.destination = destination;
         this.userID = userID;
+        this.hasNotBeenAccepted = hasNotBeenAccepted;
     }
 
     public RequestsModel(){
@@ -46,5 +49,13 @@ public class RequestsModel {
 
     public void setUserID(int userID) {
         this.userID = userID;
+    }
+
+    public Boolean getHasNotBeenAccepted() {
+        return hasNotBeenAccepted;
+    }
+
+    public void setHasNotBeenAccepted(Boolean hasNotBeenAccepted) {
+        this.hasNotBeenAccepted = hasNotBeenAccepted;
     }
 }
