@@ -49,19 +49,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp">
 
-        <TextView
-            android:id="@+id/points_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Points: 0"
-            android:textSize="18sp"
-            android:textColor="#BA0C2F"
-            android:background="@drawable/rounded_background"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
-            android:textStyle="bold" />
     </FrameLayout>
 
     <Button

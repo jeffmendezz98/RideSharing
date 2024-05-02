@@ -8,29 +8,40 @@
     <!-- Destination -->
     <EditText
         android:id="@+id/address_text_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:layout_marginBottom="8dp"
-    android:enabled="false"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"/>
 
     <!-- Date -->
     <EditText
         android:id="@+id/date_text_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:layout_marginBottom="8dp"
-    android:enabled="false"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"/>
 
     <!-- Time -->
     <EditText
         android:id="@+id/time_text_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:layout_marginBottom="8dp"
-    android:enabled="false"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"
+        android:enabled="false"/>
+
+    <!-- Status TextView -->
+    <TextView
+        android:id="@+id/status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        android:text="Ride has been accepted"
+        android:layout_marginBottom="8dp"/>
 
     <!-- Button Container -->
     <LinearLayout

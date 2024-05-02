@@ -82,15 +82,25 @@ public class OffersRideListFragment extends Fragment {
             destinationTextView.setText(offer.getDestination());
             dateTextView.setText(offer.getDate());
 
-            // Set onClickListener for accept button
-            acceptButton.setOnClickListener(v -> {
-                // Display the popup
-                displayPopup(String.valueOf(offer.getId())); // Convert offer ID to String
-            });
+            // Check acceptance status
+            if (offer.getHasNotBeenAccepted()) {
+                // Offer not accepted yet, enable accept button
+                acceptButton.setText("Accept");
+                acceptButton.setEnabled(true);
+                acceptButton.setOnClickListener(v -> {
+                    // Display the popup
+                    displayPopup(String.valueOf(offer.getId())); // Convert offer ID to String
+                });
+            } else {
+                // Offer has been accepted, disable accept button
+                acceptButton.setText("Accepted");
+                acceptButton.setEnabled(false);
+            }
 
             offersLayout.addView(offerView);
         }
     }
+
 
     private void displayPopup(String offerId) {
         // Inflate the popup layout
@@ -102,16 +112,15 @@ public class OffersRideListFragment extends Fragment {
 
         // Set onClickListeners for the buttons
         acceptButton.setOnClickListener(v -> {
-
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("offers");
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                //re-instantiate offersList
+            // Update hasNotBeenAccepted field in Firebase
+            DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(offerId);
+            offerRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    offersList.clear();
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        OffersModel offer = snapshot.getValue(OffersModel.class);
-                            offersList.add(offer);
+                    OffersModel offer = dataSnapshot.getValue(OffersModel.class);
+                    if (offer != null) {
+                        offer.setHasNotBeenAccepted(false);
+                        offerRef.setValue(offer); // Update offer in Firebase
                     }
                 }
 
@@ -121,16 +130,6 @@ public class OffersRideListFragment extends Fragment {
                 }
             });
 
-            for (OffersModel offer : offersList) {
-                /*
-                if (offer.getId() == ) {
-                    offer.setHasNotBeenAccepted(false);
-                    DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
-                    offerRef.setValue(offer); // Update offer in Firebase
-                }
-                */
-            }
-
             // Dismiss the popup
             ViewGroup parentView = (ViewGroup) popupView.getParent();
             if (parentView != null) {
@@ -138,7 +137,7 @@ public class OffersRideListFragment extends Fragment {
             }
         });
 
-        //Cancel Button
+        // Set onClickListener for cancel button
         cancelButton.setOnClickListener(v -> {
             // Dismiss the popup
             ViewGroup parentView = (ViewGroup) popupView.getParent();
@@ -150,4 +149,5 @@ public class OffersRideListFragment extends Fragment {
         // Add the popup to the offersLayout
         offersLayout.addView(popupView);
     }
+
 }

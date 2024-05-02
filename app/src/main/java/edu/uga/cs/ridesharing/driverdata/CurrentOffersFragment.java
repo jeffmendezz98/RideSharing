@@ -7,25 +7,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.uga.cs.ridesharing.DB.OffersModel;
 import edu.uga.cs.ridesharing.R;
+import edu.uga.cs.ridesharing.driverdata.OfferRideActivity;
 
 public class CurrentOffersFragment extends Fragment {
 
     private LinearLayout offersLayout;
     private List<OffersModel> offersList;
-    private Boolean toggle;
 
     @Nullable
     @Override
@@ -79,41 +83,50 @@ public class CurrentOffersFragment extends Fragment {
             Button editButton = offerView.findViewById(R.id.edit_button);
             Button saveButton = offerView.findViewById(R.id.save_button);
             Button cancelButton = offerView.findViewById(R.id.cancel_button);
+            TextView statusTextView = offerView.findViewById(R.id.status_text_view); // Assuming you have a TextView to display the status
 
             addressEditText.setText(offer.getDestination());
             dateEditText.setText(offer.getDate());
 
             Boolean toggle = offer.getHasNotBeenAccepted();
-            // Set onClickListeners for edit, save, and cancel buttons
-            editButton.setEnabled(toggle);
-            editButton.setOnClickListener(v -> {
-                addressEditText.setEnabled(toggle);
-                dateEditText.setEnabled(toggle);
-                timeEditText.setEnabled(toggle);
+            if (!toggle) {
+                // If offer has been accepted, hide buttons and show status
                 editButton.setVisibility(View.GONE);
+                saveButton.setVisibility(View.GONE);
+                cancelButton.setVisibility(View.GONE);
+                statusTextView.setVisibility(View.VISIBLE);
+                statusTextView.setText("Ride has been accepted");
+            } else {
+                // If offer has not been accepted, enable buttons
+                editButton.setEnabled(true);
                 saveButton.setVisibility(View.VISIBLE);
                 cancelButton.setVisibility(View.VISIBLE);
+            }
+
+            // Set onClickListeners for edit, save, and cancel buttons
+            editButton.setOnClickListener(v -> {
+                // Enable editing
+                addressEditText.setEnabled(true);
+                dateEditText.setEnabled(true);
+                timeEditText.setEnabled(true);
             });
 
             saveButton.setOnClickListener(v -> {
                 // Save changes to offer
                 String newAddress = addressEditText.getText().toString().trim();
                 String newDate = dateEditText.getText().toString().trim();
-                String newTime = timeEditText.getText().toString().trim();
 
-                if (!newAddress.isEmpty() && !newDate.isEmpty() && !newTime.isEmpty()) {
+                if (!newAddress.isEmpty() && !newDate.isEmpty()) {
                     offer.setDestination(newAddress);
                     offer.setDate(newDate);
                     DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offer.getId()));
                     offerRef.setValue(offer); // Update offer in Firebase
                 }
 
+                // Disable editing
                 addressEditText.setEnabled(false);
                 dateEditText.setEnabled(false);
                 timeEditText.setEnabled(false);
-                editButton.setVisibility(View.VISIBLE);
-                saveButton.setVisibility(View.GONE);
-                cancelButton.setVisibility(View.GONE);
             });
 
             cancelButton.setOnClickListener(v -> {
@@ -129,6 +142,25 @@ public class CurrentOffersFragment extends Fragment {
             offersLayout.addView(offerView);
         }
     }
-}
 
+    private void acceptOffer(int offerId) {
+        DatabaseReference offerRef = FirebaseDatabase.getInstance().getReference("offers").child(String.valueOf(offerId));
+        offerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                OffersModel offer = dataSnapshot.getValue(OffersModel.class);
+                if (offer != null) {
+                    // Update the hasNotBeenAccepted field to false
+                    offer.setHasNotBeenAccepted(false);
+                    offerRef.setValue(offer); // Update offer in Firebase
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle database error
+            }
+        });
+    }
+}
 
